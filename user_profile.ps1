@@ -41,6 +41,7 @@ Set-Alias -Name gll -Value gitll
 Set-Alias -Name flush -Value flushdns
 Set-Alias -Name touch -Value touchFn
 Set-Alias -Name gin -Value gitInit 
+Set-Alias -Name v -Value nvimFN 
 
 
 # Utilities
@@ -51,6 +52,10 @@ function which ($command) {
 
 function gist {
   git status
+}
+
+function nvimFN {
+  nvim .
 }
 
 function gitInit {

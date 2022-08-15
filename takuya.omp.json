@@ -7,9 +7,11 @@
         {
           "background": "#00b5c2",
           "foreground": "#ffffff",
-          "leading_diamond": "\u256d\u2500\ue0b6",
+          "leading_diamond": "\u222c\uf931Ch\uf6e8AtM0D3$4\uf931\u222c \uf490 \ue0b6",
+          //"leading_diamond": "\u256d\u2500\ue0b6",
           "style": "diamond",
-          "template": " {{ .Name }} ",
+          "template": "SIER ",
+          //"template": "SIER {{ .Name }} ",
           "type": "shell"
         },
         {
@@ -27,7 +29,8 @@
           "foreground": "#E4E4E4",
           "powerline_symbol": "\ue0b0",
           "properties": {
-            "style": "full"
+            "style": "folder"
+            //"style": "full"
           },
           "style": "powerline",
           "template": " {{ .Path }} ",
