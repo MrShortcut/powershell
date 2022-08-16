@@ -31,7 +31,6 @@ Set-Alias co code
 Set-Alias e explorer 
 Set-Alias .. cd..
 Set-Alias vi nvim
-Set-Alias c cd
 Set-Alias gs gist
 Set-Alias ga. gitaddDot
 
@@ -42,6 +41,8 @@ Set-Alias -Name flush -Value flushdns
 Set-Alias -Name touch -Value touchFn
 Set-Alias -Name gin -Value gitInit 
 Set-Alias -Name v -Value nvimFN 
+Set-Alias -Name c -Value cdFN 
+Set-Alias -Name gpof -Value gpofFN 
 
 
 # Utilities
@@ -70,12 +71,21 @@ function gcme ($v) {
   git commit -m $v 
 }
 
+function cdFN ($v) {
+  cd $v
+  ls
+}
+
 function gitaddDot ($p) {
   git add .
 }
 
 function gitll {
   git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+}
+
+function gpofFN {
+  git push --set-upstream origin main
 }
 
 function touchFn ($value) {
