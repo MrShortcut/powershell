@@ -52,7 +52,7 @@ function which ($command) {
     Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
 }
 
-function which ($param) {
+function grsurlFN ($param) {
   git remote set-url origin $param
 }
 
