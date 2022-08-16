@@ -43,12 +43,17 @@ Set-Alias -Name gin -Value gitInit
 Set-Alias -Name v -Value nvimFN 
 Set-Alias -Name c -Value cdFN 
 Set-Alias -Name gpof -Value gpofFN 
+Set-Alias -Name grsurl -Value grsurlFN
 
 
 # Utilities
 function which ($command) {
   Get-Command -Name $command -ErrorAction SilentlyContinue |
     Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
+}
+
+function which ($param) {
+  git remote set-url origin $param
 }
 
 function gist {
