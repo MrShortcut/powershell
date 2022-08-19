@@ -43,8 +43,9 @@ Set-Alias -Name gin -Value gitInit
 Set-Alias -Name v -Value nvimFN 
 Set-Alias -Name c -Value cdFN 
 Set-Alias -Name gpof -Value gpofFN 
+Set-Alias -Name gpob -Value gpobFN 
 Set-Alias -Name grsurl -Value grsurlFN
-
+Set-Alias -Name dev -Value devFN
 
 # Utilities
 function which ($command) {
@@ -93,8 +94,17 @@ function gpofFN {
   git push --set-upstream origin main
 }
 
+function gpobFN($p) {
+  gitp push --set-upstream origin $p
+}
+
 function touchFn ($value) {
   new-Item -Name $value
+}
+
+
+function devFn {
+  npm run dev
 }
 
 function exitFN {
