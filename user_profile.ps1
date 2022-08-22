@@ -102,6 +102,12 @@ Set-Alias -Name gco -Value gcme
 Set-Alias -Name ginit -Value gitInit 
 Set-Alias -Name gll -Value gitll 
 Set-Alias -Name gpob -Value gpobFN 
+Set-Alias -Name gdiff -Value gdiffFN 
+Set-Alias -Name gcoa -Value gcoaFN 
+
+function gcoaFN ($p) {
+  git commit --amend $p
+}
 
 function gitaddDot ($p) {
   git add .
@@ -126,8 +132,13 @@ function grsurlFN ($param) {
 function gist {
   git status
 }
+
 function gitInit {
   git init
+}
+
+function gdiffFn {
+  git diff --color-words
 }
 
 # Open files
