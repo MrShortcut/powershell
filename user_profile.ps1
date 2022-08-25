@@ -38,6 +38,7 @@ Set-Alias -Name dev -Value devFN
 Set-Alias -Name e -Value eFN
 Set-Alias -Name n -Value nFN
 Set-Alias -Name ta -Value tFN
+Set-Alias -Name tai -Value taiFN
 Set-Alias -Name co -Value coFN
 
 # Utilities
@@ -90,6 +91,19 @@ function nFN ($p, $n, $i) {
 
 function tFN {
   Write-Output '<script src="https://cdn.tailwindcss.com"></script>'
+}
+
+function taiFN {
+  Write-Output "
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+  " >> tailwind.config.js
 }
 
 # Git
