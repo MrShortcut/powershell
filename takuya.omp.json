@@ -26,7 +26,7 @@
           "type": "root"
         },
         {
-          "background": "#444444",
+          "background": "#400c70",
           "foreground": "#E4E4E4",
           "powerline_symbol": "\ue0b0",
           "properties": {
