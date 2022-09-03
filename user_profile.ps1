@@ -41,6 +41,12 @@ Set-Alias -Name ta -Value tFN
 Set-Alias -Name tai -Value taiFN
 Set-Alias -Name co -Value coFN
 Set-Alias -Name nrd -Value nrdFN
+Set-Alias -Name pass -Value passg 
+Set-Alias -Name p -Value pnpmRunDevFn 
+
+function pnpmRunDevFn {
+  pnpm run dev
+}
 
 # Utilities
 function which ($command) {
@@ -202,6 +208,7 @@ function vimTsconfigFN {
 function vimUserProfileFN {
   nvim user_profile.ps1
 }
+
 
 # Create .gitignore file using this command:
 # welc > .gitignore
