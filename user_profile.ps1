@@ -40,6 +40,7 @@ Set-Alias -Name n -Value nFN
 Set-Alias -Name ta -Value tFN
 Set-Alias -Name tai -Value taiFN
 Set-Alias -Name co -Value coFN
+Set-Alias -Name nrd -Value nrdFN
 
 # Utilities
 function which ($command) {
@@ -153,6 +154,11 @@ function gitInit {
 
 function gdiffFn {
   git diff --color-words
+}
+
+# Commans
+function nrdFN {
+  npm run dev
 }
 
 # Open files
