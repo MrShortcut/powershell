@@ -26,12 +26,12 @@
           "type": "root"
         },
         {
-          "background": "#400c70",
-          "foreground": "#E4E4E4",
+          "background": "#400c60",
+          "foreground": "#ffffff",
           "powerline_symbol": "\ue0b0",
           "properties": {
-            "style": "folder"
             //"style": "full"
+            "style": "folder"
           },
           "style": "powerline",
           "template": " {{ .Path }} ",
