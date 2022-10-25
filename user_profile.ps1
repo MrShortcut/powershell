@@ -215,7 +215,7 @@ function vimUserProfileFN {
 Set-Alias -Name welc -Value welcFn
 Set-Alias -Name cheat -Value cheatFn
 
-Import-Module C:\Users\rmoreno\.config\dotfiles-public\.config\powershell\gitIgnore.ps1
+Import-Module C:\Users\rmoreno\.config\powershell\gitIgnore.ps1
 
-Import-Module C:\Users\rmoreno\.config\dotfiles-public\.config\powershell\cheatmodes4.ps1
+Import-Module C:\Users\rmoreno\.config\powershell\cheatmodes4.ps1
 

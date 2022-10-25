@@ -17,8 +17,10 @@
         },
         {
           "background": "#ef5350",
-          "foreground": "#FFFB38",
-          "properties": {
+          "foreground": "#fea125",
+          // "foreground": "#FFFB38",
+          // "foreground": "#ffdc8c",
+          "ties": {
             "root_icon": "\uf292"
           },
           "style": "diamond",
