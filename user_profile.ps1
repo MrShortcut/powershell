@@ -1,3 +1,4 @@
+using namespace System.Collections.Generic
 # set PowerShell to UTF-8
 [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 
@@ -93,7 +94,8 @@ function coFN {
 
 function nFN ($p, $n, $i) {
   # url, name, ico
-  nativefier $p -n $n -i $i
+  npm start
+  #nativefier $p -n $n -i $i
 }
 
 function tFN {
@@ -209,6 +211,218 @@ function vimUserProfileFN {
   nvim user_profile.ps1
 }
 
+# Modify behivior of the pws
+Set-Alias -Name t -Value tabRenameFN
+
+# Encapsulate an arbitrary command
+class PaneCommand {
+    [string]$Command
+
+    PaneCommand() {
+        $this.Command = "";
+    }
+
+    PaneCommand([string]$command) {
+        $this.Command = $command
+    }
+
+    [string]GetCommand() {
+        return $this.Command
+    }
+
+    [string]ToString() {
+        return $this.GetCommand();
+    }
+}
+
+# A proxy for Split Pane which takes in a command to run inside the pane
+class Pane : PaneCommand {
+    [string]$ProfileName;
+    [string]$Orientation
+    [decimal]$Size;
+
+    Pane([string]$command) : base($command) {
+        $this.Orientation = '';
+        $this.ProfileName = "Windows Powershell"
+        $this.Size = 0.5;
+    }
+
+    Pane([string]$command, [string]$orientation) : base($command) {
+        $this.Orientation = $orientation;
+        $this.ProfileName = "Windows Powershell"
+        $this.Size = 0.5;
+    }
+
+    Pane([string]$command, [string]$orientation, [decimal]$size) : base($command) {
+        $this.Orientation = $orientation;
+        $this.ProfileName = "Windows Powershell"
+        $this.size = $size;
+    }
+    
+    Pane([string]$ProfileName, [string]$command, [string]$orientation, [decimal]$size) : base($command) {
+        $this.Orientation = $orientation;
+        $this.ProfileName = $ProfileName;
+        $this.size = $size;
+    }
+
+    [string]GetCommand() {
+        return 'split-pane --size {0} {1} -p "{2}" -c {3}' -f $this.Size, $this.Orientation, $this.ProfileName, $this.Command
+    }
+}
+
+class TargetPane : PaneCommand {
+    [int]$SelectedIndex;
+
+    TargetPane([int]$index) {
+        $this.SelectedIndex = $index;
+    }
+
+    [string]GetCommand() {
+        return "focus-pane --target={0}" -f $this.SelectedIndex;
+    }
+}
+
+class MoveFocus : PaneCommand {
+    [string]$direction;
+
+    MoveFocus([string]$direction) {
+        $this.direction = $direction;
+    }
+
+    [string]GetCommand() {
+        return 'move-focus --direction {0}' -f $this.direction;
+    }
+}
+
+class PaneManager : PaneCommand {
+  [string]$InitialCommand;
+  [List[PaneCommand]]$PaneCommands;
+  [string]$ProfileName;
+  [string]$DefaultOrientation;
+  [float]$DefaultSize;
+
+  PaneManager() {
+      $this.PaneCommands = [List[PaneCommand]]::new();
+      $this.ProfileName = "¨powershell";
+      $this.DefaultOrientation = '-V';
+      $this.DefaultSize = 0.5;
+      $this.InitialCommand = "--maximized"
+  }
+
+  PaneManager([string]$ProfileName) {
+      $this.ProfileName = $ProfileName;
+      $this.DefaultOrientation = '-V';
+      $this.DefaultSize = 0.5;
+  }
+
+  [PaneManager]SetInitialCommand([string]$command) {
+      $this.InitialCommand = $command;
+      return $this;
+  }
+
+  [PaneManager]SetProfileName([string]$name) {
+      $this.ProfileName = $name;
+      return $this;
+  }
+
+  [PaneManager]SetDefaultOrientation([string]$orientation) {
+      $this.DefaultOrientation = $orientation;
+      return $this;
+  }
+
+  [PaneManager]SetDefaultSize([float]$size) {
+      $this.DefaultSize = $size;
+      return $this;
+  }
+
+  [PaneManager]SetOptions([string]$name, [string]$orientation, [float]$size) {
+      return $this.SetProfileName($name)
+              .SetDefaultOrientation($orientation)
+              .SetDefaultSize($size);
+
+  }
+
+  [PaneManager]AddPane([PaneManager]$manager) {
+      $manager.SetInitialCommand('');
+      $this.AddCommand($manager);
+      return $this;
+  }
+
+  [PaneManager]AddCommand([PaneCommand]$command) {
+      $this.PaneCommands.Add($command);
+      return $this;
+  }
+
+  [PaneManager]AddPane([string]$command, [string]$orientation, [decimal]$size) {
+      $newPane = $this.MakePane(
+          $this.ProfileName, 
+          $command, 
+          $orientation,
+          $size
+      );
+
+      $this.AddCommand($newPane);
+      return $this;
+  }
+
+  [Pane]MakePane($ProfileName, $command, $orientation, $size) {
+      $newPane = [Pane]::new($ProfileName, $command, $orientation, $size);
+      return $newPane;
+  }
+
+  [PaneManager]TargetPane([int]$index) {
+      $targetCommand = [TargetPane]::new($index)
+      $this.AddCommand($targetCommand)
+      return $this;
+  }
+
+  [PaneManager]MoveFocus([string]$direction) {
+      $targetCommand = [MoveFocus]::new($direction)
+      $this.AddCommand($targetCommand)
+      return $this;
+  }
+
+  [int]GetPaneCount() {
+      $count = 0;
+      
+      foreach ($command in $this.PaneCommands)
+      {
+          if ($command -is [PaneManager]) {
+              $count += $command.GetPaneCount();
+          } elseif ($command -is [PaneCommand]) {
+              $count += 1;
+          }
+      }
+
+      return $count;
+  }
+
+  [string]GetCommand() {
+      
+      $joinedCommands = $this.PaneCommands -join "; ";
+      
+      if ($joinedCommands -eq "") {
+          return $this.InitialCommand;
+      }
+
+      $finalCommand =  if ($this.InitialCommand -ne "") { "{0}; {1}" -f $this.InitialCommand, $joinedCommands} else { $joinedCommands };
+      return $finalCommand
+  }
+}
+
+# t command for open one instance of powershell divide in 3panes
+function tabRenameFN {
+  $culture = [System.Globalization.CultureInfo]::CreateSpecificCulture("en-US") 
+  $culture.NumberFormat.NumberDecimalSeparator = "." 
+  $culture.NumberFormat.NumberGroupSeparator = "," 
+  [System.Threading.Thread]::CurrentThread.CurrentCulture = $culture
+
+  $paneManagerClass = ([PaneManager]::new()).
+                    AddPane("powershell", '-H', 0.3).
+                    AddPane("powershell", '-V', 0.5).
+                    MoveFocus("up");
+  start wt $paneManagerClass;
+}
 
 # Create .gitignore file using this command:
 # welc > .gitignore
@@ -219,3 +433,8 @@ Import-Module C:\Users\rmoreno\.config\powershell\gitIgnore.ps1
 
 Import-Module C:\Users\rmoreno\.config\powershell\cheatmodes4.ps1
 
+# Clear console when start
+Clear-Host;
+
+# put me in dev path at start
+z dev;
