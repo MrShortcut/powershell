@@ -30,11 +30,11 @@ Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 Set-Alias .. cd..
 Set-Alias vi nvim
 
-Set-Alias -Name ex -Value exitFn 
+Set-Alias -Name ex -Value exitFn
 Set-Alias -Name flush -Value flushdns
 Set-Alias -Name touch -Value touchFn
-Set-Alias -Name v -Value nvimFN 
-Set-Alias -Name c -Value cdFN 
+Set-Alias -Name v -Value nvimFN
+Set-Alias -Name c -Value cdFN
 Set-Alias -Name dev -Value devFN
 Set-Alias -Name e -Value eFN
 Set-Alias -Name n -Value nFN
@@ -42,8 +42,8 @@ Set-Alias -Name ta -Value tFN
 Set-Alias -Name tai -Value taiFN
 Set-Alias -Name co -Value coFN
 Set-Alias -Name nrd -Value nrdFN
-Set-Alias -Name pass -Value passg 
-Set-Alias -Name p -Value pnpmRunDevFn 
+Set-Alias -Name pass -Value passg
+Set-Alias -Name p -Value pnpmRunDevFn
 
 function pnpmRunDevFn {
   pnpm run dev
@@ -64,7 +64,7 @@ function flushdns {
 }
 
 function gcme ($v) {
-  git commit -m $v 
+  git commit -m $v
 }
 
 function cdFN ($v) {
@@ -120,13 +120,13 @@ Set-Alias g git
 Set-Alias gs gist
 Set-Alias ga. gitaddDot
 Set-Alias -Name grsurl -Value grsurlFN
-Set-Alias -Name gpof -Value gpofFN 
-Set-Alias -Name gco -Value gcme 
-Set-Alias -Name ginit -Value gitInit 
-Set-Alias -Name gll -Value gitll 
-Set-Alias -Name gpob -Value gpobFN 
-Set-Alias -Name gdiff -Value gdiffFN 
-Set-Alias -Name gcoa -Value gcoaFN 
+Set-Alias -Name gpof -Value gpofFN
+Set-Alias -Name gco -Value gcme
+Set-Alias -Name ginit -Value gitInit
+Set-Alias -Name gll -Value gitll
+Set-Alias -Name gpob -Value gpobFN
+Set-Alias -Name gdiff -Value gdiffFN
+Set-Alias -Name gcoa -Value gcoaFN
 
 function gcoaFN ($p) {
   git commit --amend $p
@@ -180,7 +180,7 @@ Set-Alias -Name vimt -Value vimTsconfigFN
 Set-Alias -Name vimu -Value vimUserProfileFN
 
 function vimPackageFN {
-  nvim package.json 
+  nvim package.json
 }
 
 function vimReadmeFN {
@@ -214,6 +214,7 @@ function vimUserProfileFN {
 # Modify behivior of the pws
 Set-Alias -Name t -Value tabRenameFN
 
+# Logic for PaneComannder
 # Encapsulate an arbitrary command
 class PaneCommand {
     [string]$Command
@@ -258,7 +259,7 @@ class Pane : PaneCommand {
         $this.ProfileName = "Windows Powershell"
         $this.size = $size;
     }
-    
+
     Pane([string]$ProfileName, [string]$command, [string]$orientation, [decimal]$size) : base($command) {
         $this.Orientation = $orientation;
         $this.ProfileName = $ProfileName;
@@ -355,8 +356,8 @@ class PaneManager : PaneCommand {
 
   [PaneManager]AddPane([string]$command, [string]$orientation, [decimal]$size) {
       $newPane = $this.MakePane(
-          $this.ProfileName, 
-          $command, 
+          $this.ProfileName,
+          $command,
           $orientation,
           $size
       );
@@ -384,7 +385,6 @@ class PaneManager : PaneCommand {
 
   [int]GetPaneCount() {
       $count = 0;
-      
       foreach ($command in $this.PaneCommands)
       {
           if ($command -is [PaneManager]) {
@@ -398,9 +398,8 @@ class PaneManager : PaneCommand {
   }
 
   [string]GetCommand() {
-      
       $joinedCommands = $this.PaneCommands -join "; ";
-      
+
       if ($joinedCommands -eq "") {
           return $this.InitialCommand;
       }
@@ -412,13 +411,13 @@ class PaneManager : PaneCommand {
 
 # t command for open one instance of powershell divide in 3panes
 function tabRenameFN {
-  $culture = [System.Globalization.CultureInfo]::CreateSpecificCulture("en-US") 
-  $culture.NumberFormat.NumberDecimalSeparator = "." 
-  $culture.NumberFormat.NumberGroupSeparator = "," 
+  $culture = [System.Globalization.CultureInfo]::CreateSpecificCulture("en-US")
+  $culture.NumberFormat.NumberDecimalSeparator = "."
+  $culture.NumberFormat.NumberGroupSeparator = ","
   [System.Threading.Thread]::CurrentThread.CurrentCulture = $culture
 
   $paneManagerClass = ([PaneManager]::new()).
-                    AddPane("powershell", '-H', 0.3).
+                    AddPane("powershell", '-H', 0.25).
                     AddPane("powershell", '-V', 0.5).
                     MoveFocus("up");
   start wt $paneManagerClass;
