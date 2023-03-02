@@ -44,6 +44,7 @@ Set-Alias -Name co -Value coFN
 Set-Alias -Name nrd -Value nrdFN
 Set-Alias -Name pass -Value passg
 Set-Alias -Name p -Value pnpmRunDevFn
+Set-Alias -Name miduco -Value miducoFN 
 
 function pnpmRunDevFn {
   pnpm run dev
@@ -209,6 +210,10 @@ function vimTsconfigFN {
 
 function vimUserProfileFN {
   nvim user_profile.ps1
+}
+
+function miducoFN {
+  npx miduco@latest
 }
 
 # Modify behivior of the pws
@@ -417,8 +422,8 @@ function tabRenameFN {
   [System.Threading.Thread]::CurrentThread.CurrentCulture = $culture
 
   $paneManagerClass = ([PaneManager]::new()).
-                    AddPane("powershell", '-H', 0.25).
-                    AddPane("powershell", '-V', 0.5).
+                    AddPane("pwsh", '-H', 0.25).
+                    AddPane("pwsh", '-V', 0.5).
                     MoveFocus("up");
   start wt $paneManagerClass;
 }
@@ -437,3 +442,4 @@ Clear-Host;
 
 # put me in dev path at start
 z dev;
+z dct;
