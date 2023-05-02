@@ -68,7 +68,7 @@ function gcme ($v) {
   git commit -m $v
 }
 
-function cdFN ($v) {
+function cdFN ($v = '.') {
   cd $v
   ls
 }
