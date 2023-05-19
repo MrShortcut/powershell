@@ -116,7 +116,7 @@ module.exports = {
   " >> tailwind.config.js
 }
 
-# Git
+# --------------------------------------------------------------------- @Git ---------------------------------------------------------------------
 Set-Alias g git
 Set-Alias gs gist
 Set-Alias ga. gitaddDot
@@ -164,13 +164,14 @@ function gitInit {
 function gdiffFn {
   git diff --color-words
 }
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ @Git ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Commans
 function nrdFN {
   npm run dev
 }
 
-# Open files
+# --------------------------------------------------------------------- @Open files ---------------------------------------------------------------------
 Set-Alias -Name vimp -Value vimPackageFN
 Set-Alias -Name vimr -Value vimReadmeFN
 Set-Alias -Name vimg -Value vimIgnoreFN
@@ -216,8 +217,28 @@ function miducoFN {
   npx miduco@latest
 }
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ @Open files ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # Modify behivior of the pws
 Set-Alias -Name t -Value tabRenameFN
+
+# --------------------------------------------------------------------- @Modify Paths ---------------------------------------------------------------------
+Set-Alias -Name rmf -Value removeForceFN
+
+function removeForceFN ($param) {
+  if (-not [string]::IsNullOrWhiteSpace($param)) {
+    $confirmation = Read-Host '¿Estás seguro de que deseas eliminar el archivo? (Y/N)'
+    if ($confirmation -eq 'Y') {
+      Write-Output ('Eliminando... ' + $param)
+      Remove-Item -Force $param
+    } else {
+      Write-Output 'Eliminacion cancelada'
+    }
+  } else {
+    Write-Output 'Ningún archivo para eliminar.'
+  }
+}
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ @Modify Paths ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Logic for PaneComannder
 # Encapsulate an arbitrary command
@@ -432,6 +453,7 @@ function tabRenameFN {
 # welc > .gitignore
 Set-Alias -Name welc -Value welcFn
 Set-Alias -Name cheat -Value cheatFn
+Set-Alias -Name cheatM -Value cheatmodes
 
 Import-Module C:\Users\rmoreno\.config\powershell\gitIgnore.ps1
 
@@ -441,5 +463,7 @@ Import-Module C:\Users\rmoreno\.config\powershell\cheatmodes4.ps1
 Clear-Host;
 
 # put me in dev path at start
-z dev;
+#z dev;
+
+# put me in dct path at start
 z dct;
