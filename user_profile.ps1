@@ -30,6 +30,7 @@ Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
 Set-Alias .. cd..
 Set-Alias vi nvim
 
+# Tools
 Set-Alias -Name ex -Value exitFn
 Set-Alias -Name flush -Value flushdns
 Set-Alias -Name touch -Value touchFn
@@ -116,20 +117,6 @@ module.exports = {
 }
   " >> tailwind.config.js
 }
-
-# --------------------------------------------------------------------- @Git ---------------------------------------------------------------------
-Set-Alias -Name g -Value git
-Set-Alias gs gist
-Set-Alias ga. gitaddDot
-Set-Alias -Name ga -Value gitaddspread
-Set-Alias -Name grsurl -Value grsurlFN
-Set-Alias -Name gpof -Value gpofFN
-Set-Alias -Name gco -Value gcme
-Set-Alias -Name ginit -Value gitInit
-Set-Alias -Name gll -Value gitll
-Set-Alias -Name gpob -Value gpobFN
-Set-Alias -Name gdiff -Value gdiffFN
-Set-Alias -Name gcoa -Value gcoaFN
 
 # --------------------------------------------------------------------- @Miduco ---------------------------------------------------------------------
 Set-Alias -Name gmidu -Value gmiduco
@@ -239,8 +226,21 @@ function gcmeBuild ($v) {
   Write-Output "git commit -m `"🏗️ build: $v`""
   git commit -m "🏗️ build: $v"
 }
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ @Miduco ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# --------------------------------------------------------------------- @Git ---------------------------------------------------------------------
+Set-Alias -Name g -Value git
+Set-Alias gs gist
+Set-Alias ga. gitaddDot
+Set-Alias -Name ga -Value gitaddspread
+Set-Alias -Name grsurl -Value grsurlFN
+Set-Alias -Name gpof -Value gpofFN
+Set-Alias -Name gco -Value gcme
+Set-Alias -Name ginit -Value gitInit
+Set-Alias -Name gll -Value gitll
+Set-Alias -Name gpob -Value gpobFN
+Set-Alias -Name gdiff -Value gdiffFN
+Set-Alias -Name gcoa -Value gcoaFN
 
 function gcoaFN ($p) {
   git commit --amend $p
