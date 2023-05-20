@@ -65,6 +65,7 @@ function flushdns {
 }
 
 function gcme ($v) {
+  Write-Output "git commit -m $v`""
   git commit -m $v
 }
 
@@ -117,9 +118,10 @@ module.exports = {
 }
 
 # --------------------------------------------------------------------- @Git ---------------------------------------------------------------------
-Set-Alias g git
+Set-Alias -Name g -Value git
 Set-Alias gs gist
 Set-Alias ga. gitaddDot
+Set-Alias -Name ga -Value gitaddspread
 Set-Alias -Name grsurl -Value grsurlFN
 Set-Alias -Name gpof -Value gpofFN
 Set-Alias -Name gco -Value gcme
@@ -129,12 +131,134 @@ Set-Alias -Name gpob -Value gpobFN
 Set-Alias -Name gdiff -Value gdiffFN
 Set-Alias -Name gcoa -Value gcoaFN
 
+# --------------------------------------------------------------------- @Miduco ---------------------------------------------------------------------
+Set-Alias -Name gmidu -Value gmiduco
+Set-Alias -Name gF -Value gcmeFeat
+Set-Alias -Name gfix -Value gcmeFix
+Set-Alias -Name gperf -Value gcmePerf
+Set-Alias -Name gref -Value gcmeRef
+Set-Alias -Name gdocs -Value gcmeDocs
+Set-Alias -Name gtest -Value gcmeTest
+Set-Alias -Name gbuild -Value gcmeBuild
+
+function Highlight-Text($text, $color) {
+    $colors = @{
+        'Black'       = 0
+        'DarkBlue'    = 1
+        'DarkGreen'   = 2
+        'DarkCyan'    = 3
+        'DarkRed'     = 4
+        'DarkMagenta' = 5
+        'DarkYellow'  = 6
+        'Gray'        = 7
+        'DarkGray'    = 8
+        'Blue'        = 9
+        'Green'       = 10
+        'Cyan'        = 11
+        'Red'         = 12
+        'Magenta'     = 13
+        'Yellow'      = 14
+        'White'       = 15
+    }
+
+    $colorCode = $colors[$color]
+    if (-not $colorCode) {
+        Write-Host "Invalid color specified: $color" -ForegroundColor Red
+        return
+    }
+
+    $escapedColor = [char]27 + "[38;5;${colorCode}m"
+    $resetColor = [char]27 + "[0m"
+
+    $highlightedText = $text -replace "($text)", "${escapedColor}`$1${resetColor}"
+    Write-Host $highlightedText
+}
+
+function Highlight-T($text, $highlight, $color) {
+    $startIndex = $text.IndexOf($highlight)
+    $endIndex = $startIndex + $highlight.Length
+
+    Write-Host -NoNewline $text.Substring(0, $startIndex)
+    Write-Host -NoNewline $highlight -ForegroundColor $color
+    Write-Host $text.Substring($endIndex)
+}
+
+function gmiduco {
+  #Write-Output "gM - para sacar este menú de comandos"
+  #Write-Host "○ gF     🆕 feat     · Add new feature" -ForegroundColor Yellow
+  #Highlight-Text "○ gF     🆕 feat     · Add new feature" "Yellow"
+  #Write-Output "○ gperf  ⚡️perf     · Improve performance"
+  #Write-Output "○ gref   🛠  refactor · Refactor code"
+  #Write-Output "○ gdocs  📚 docs     · Add or update documentation"
+  #Write-Output "○ gtest  🧪 test     · Add or update tests"
+  #Write-Output "○ gbuild 🏗️ build    · Add or update build scripts"
+
+  Highlight-Text "gmidu - para sacar este menú de comandos" "DarkGray"
+  Write-Host "`n`COMANDOS & TIPOS DE COMMIT: `n` " -ForegroundColor Cyan 
+  Highlight-T "gF     | 🆕 feat     · Add new feature" "gF" "Yellow"
+  Highlight-T "gfix   | 🐛 fixed    · Submit a fixed to a bug" "gfix" "Green"
+  Highlight-T "gperf  | ⚡️perf     · Improve performance" "gperf" "Blue"
+  Highlight-T "gref   | 🛠  refactor · Refactor code" "gref" "Magenta"
+  Highlight-T "gdocs  | 📚 docs     · Add or update documentation" "gdocs" "White"
+  Highlight-T "gtest  | 🧪 test     · Add or update tests" "gtest" "DarkRed"
+  Highlight-T "gbuild | 🏗️ build    · Add or update build scripts" "gbuild" "DarkGreen"
+  Write-Host 
+}
+
+function gcmeFeat ($v) {
+  Write-Output "git commit -m `"🆕 feat: $v`""
+  git commit -m "🆕 feat: $v"
+}
+
+function gcmeFix ($v) {
+  Write-Output "git commit -m `"🐛 fix: $v`""
+  git commit -m "🐛 fix: $v"
+}
+
+function gcmePerf ($v) {
+  Write-Output "git commit -m `"⚡️perf: $v`""
+  git commit -m "⚡️perf: $v"
+}
+
+function gcmeRef ($v) {
+  Write-Output "git commit -m `"🛠refactor: $v`""
+  git commit -m "🛠refactor: $v"
+}
+
+function gcmeDocs ($v) {
+  Write-Output "git commit -m `"📚 docs: $v`""
+  git commit -m "📚 docs: $v"
+}
+
+function gcmeTest ($v) {
+  Write-Output "git commit -m `"🧪 test: $v`""
+  git commit -m "🧪 test: $v"
+}
+
+function gcmeBuild ($v) {
+  Write-Output "git commit -m `"🏗️ build: $v`""
+  git commit -m "🏗️ build: $v"
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ @Miduco ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 function gcoaFN ($p) {
   git commit --amend $p
 }
 
+function gitaddspread {
+  param (
+    [Parameter(Mandatory=$true, Position=0, ValueFromRemainingArguments=$true)]
+    [string[]]$files
+  )
+
+  foreach ($file in $files) {
+    git add $file
+  }
+}
+
 function gitaddDot ($p) {
-  git add .
+  git add $p
 }
 
 function gitll {
