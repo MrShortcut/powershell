@@ -208,8 +208,8 @@ function gcmePerf ($v) {
 }
 
 function gcmeRef ($v) {
-  Write-Output "git commit -m `"🛠refactor: $v`""
-  git commit -m "🛠refactor: $v"
+  Write-Output "git commit -m `"🛠 refactor: $v`""
+  git commit -m "🛠 refactor: $v"
 }
 
 function gcmeDocs ($v) {
