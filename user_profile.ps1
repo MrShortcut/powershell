@@ -84,6 +84,7 @@ function devFn {
 }
 
 function exitFN {
+  cheatmodes
   exit
 }
 
@@ -585,6 +586,7 @@ Import-Module C:\Users\rmoreno\.config\powershell\gitIgnore.ps1
 Import-Module C:\Users\rmoreno\.config\powershell\cheatmodes4.ps1
 
 # Clear console when start
+cheatmodes
 Clear-Host;
 
 # put me in dev path at start
