@@ -255,6 +255,7 @@ function gitaddspread {
   foreach ($file in $files) {
     git add $file
   }
+  git status
 }
 
 function gitaddDot ($p) {
