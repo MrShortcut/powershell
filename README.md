@@ -29,9 +29,17 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object
 scoop install nvm
 
 Install-Module -Name Terminal-Icons -Repository PSGallery -Force
+
 Install-Module -Name z -Force
+
 Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck
+
 Install-Module -Name PSFzf -Scope CurrentUser -Force
+
 Set-PSReadLineOption -PredictionSource History
+
 scoop install fzf
+
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
+
+ok
