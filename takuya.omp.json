@@ -11,7 +11,7 @@
           "leading_diamond": "\u222c\uf931Ch\uf6e8AtM0D3$4\uf931\u222c \uf490 \ue0b6",
           //"leading_diamond": "\u256d\u2500\ue0b6",
           "style": "diamond",
-          "template": "SIER ",
+          "template": "INTEIA ",
           //"template": "SIER {{ .Name }} ",
           "type": "shell"
         },

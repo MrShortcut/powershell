@@ -242,6 +242,44 @@ Set-Alias -Name gll -Value gitll
 Set-Alias -Name gpob -Value gpobFN
 Set-Alias -Name gdiff -Value gdiffFN
 Set-Alias -Name gcoa -Value gcoaFN
+Set-Alias -Name gpush -Value gitPushFn
+Set-Alias -Name gllt -Value gitLogHistTakuyaFn
+Set-Alias -Name gllf -Value gitLogTakuyaFn
+Set-Alias -Name gpusht -Value gitPushTakuyaFn
+Set-Alias -Name open -Value gitOPENTakuyaFn
+Set-Alias -Name gtestT -Value gtestFn
+
+function gitLogHistTakuyaFn ($v) {
+  if($v) {
+    git log --pretty=format:\"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)\" --graph --date=relative --decorate -$v
+  } else {
+    git log --pretty=format:\"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)\" --graph --date=relative --decorate --all
+  }
+}
+
+function gitLogTakuyaFn ($p) {
+  if($p) {
+    git log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative --decorate -$p
+  } else {
+    git log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative
+  }
+}
+
+function gitPushTakuyaFn {
+  git push origin (git rev-parse --abbrev-ref HEAD)
+}
+
+function gitOPENTakuyaFn {
+  $remoteUrl = git remote get-url origin
+  $baseUrl = $remoteUrl -replace "git@(.*):(.*)\.git", "https://`$1/`$2"
+  $branch = git rev-parse --abbrev-ref HEAD
+  $url = "$baseUrl"
+  Start-Process $url
+}
+
+function gtestFn {
+  git log --pretty=format:\"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)\" --graph --date=relative --decorate --all | Select-String "commit" | ForEach-Object { $_.ToString().Split()[1] }
+}
 
 function gcoaFN ($p) {
   git commit --amend $p
@@ -257,6 +295,7 @@ function gitaddspread {
     git add $file
   }
   git status
+  gmidu
 }
 
 function gitaddDot ($p) {
@@ -279,8 +318,13 @@ function grsurlFN ($param) {
   git remote set-url origin $param
 }
 
+function gitPushFn {
+  git push
+}
+
 function gist {
   git status
+  gmidu
 }
 
 function gitInit {
@@ -396,19 +440,19 @@ class Pane : PaneCommand {
 
     Pane([string]$command) : base($command) {
         $this.Orientation = '';
-        $this.ProfileName = "Windows Powershell"
+        $this.ProfileName = "pwsh"
         $this.Size = 0.5;
     }
 
     Pane([string]$command, [string]$orientation) : base($command) {
         $this.Orientation = $orientation;
-        $this.ProfileName = "Windows Powershell"
+        $this.ProfileName = "pwsh"
         $this.Size = 0.5;
     }
 
     Pane([string]$command, [string]$orientation, [decimal]$size) : base($command) {
         $this.Orientation = $orientation;
-        $this.ProfileName = "Windows Powershell"
+        $this.ProfileName = "pwsh"
         $this.size = $size;
     }
 
@@ -456,7 +500,7 @@ class PaneManager : PaneCommand {
 
   PaneManager() {
       $this.PaneCommands = [List[PaneCommand]]::new();
-      $this.ProfileName = "¨powershell";
+      $this.ProfileName = "pwsh";
       $this.DefaultOrientation = '-V';
       $this.DefaultSize = 0.5;
       $this.InitialCommand = "--maximized"
@@ -575,22 +619,115 @@ function tabRenameFN {
   start wt $paneManagerClass;
 }
 
+#---------------------- [LOGGER]/[END_LOGGER]-----------------------------------------------------
+function Write-Log {
+    param (
+        [string]$message,
+        [string]$level = "INFO",
+        [string]$logFile = "log.txt",
+        [string]$levelColor = "White",
+        [string]$messageColor = "White",
+        [switch]$D
+    )
+    
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logEntry = "[${timestamp}] [${level}] ${message}"
+    
+    # Define los códigos de escape de colores
+    $colorCodes = @{
+        "Black" = "30"
+        "Red" = "31"
+        "Green" = "32"
+        "Yellow" = "33"
+        "Blue" = "34"
+        "Magenta" = "35"
+        "Cyan" = "36"
+        "White" = "37"
+    }
+    
+    if ($colorCodes.ContainsKey($levelColor)) {
+        $levelColorCode = $colorCodes[$levelColor]
+        $startLevelColor = "`e[${levelColorCode}m"
+        $endLevelColor = "`e[0m"
+        
+        # Agrega los códigos de escape de colores al nivel del registro
+        $logEntry = $logEntry -replace $level, "${startLevelColor}$level${endLevelColor}"
+    }
+    
+    if ($colorCodes.ContainsKey($messageColor)) {
+        $messageColorCode = $colorCodes[$messageColor]
+        $startMessageColor = "`e[${messageColorCode}m"
+        $endMessageColor = "`e[0m"
+        
+        # Agrega los códigos de escape de colores al mensaje del registro
+        #$logEntry = $logEntry -replace $message, "${startMessageColor}$message${endMessageColor}"
+        #$logEntry = $logEntry -replace [regex]::Escape($message), "${startMessageColor}$message${endColor}"
+        if ($D) {
+            $logEntry = $logEntry -replace [regex]::Escape($message), "${startMessageColor}$message${endColor}"
+        }
+        else {
+          $logEntry = $logEntry -replace $message, "${startMessageColor}$message${endMessageColor}"
+        }
+    }
+    
+    Write-Host $logEntry  # Imprime el registro en la consola
+    
+    # Escribe el registro en el archivo de registro
+    Add-Content -Path $logFile -Value $logEntry
+}
+
+#-----------------------------------------------------¬
+#| Ejemplo de uso del logger con colores personalizados|
+#------------------------------------------------------
+#Write-Log "Este es un mensaje de información" -level "INFO" -levelColor "White" -messageColor "White"
+#Write-Log "¡E! Algo salió mal" -level "ERROR" -levelColor "Red" -messageColor "White"
+#Write-Log "Mensaje de advertencia" -level "WARNING" -levelColor "White" -messageColor "Yellow"
+#---------------------- [LOGGER]/[END_LOGGER]-----------------------------------------------------
+
+#---------------------- [YOUTUBE]/[DOWNLOADER]-----------------------------------------------------
+#$VIDEO_ID = $args[0]
+
+#if (-not $VIDEO_ID) {
+#    Write-Host "ERROR: No video ID specified"
+#    exit 1
+#}
+
+#Write-Log "videoID: $VIDEO_ID" -level "LOGGER" -levelColor "White" -messageColor "Yellow"
+
+#$command = "yt-dlp"
+#$arguments = "https://www.youtube.com/watch?v=$VIDEO_ID", "--format", "m4a", "-o", "./tmp/$($VIDEO_ID)s.%(ext)s"
+#& $command $arguments 2>&1
+#---------------------- [YOUTUBE]/[END_DOWNLOADER]-----------------------------------------------------
+
+
+#---------------------- [SET_VARIABLES]/[END_SETVARIABLES]-----------------------------------------------------
+# Set-Item -Path "Env:NOMBRE" -Value "CHEATMODES4"
+Set-Alias -Name setVar -Value setEnvVar
+
+# Set-Item -Path "Env:"transcribeApiKey -Value "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"
+function setEnvVar ($nombre, $valor) {
+  Set-Item -Path "Env:$nombre" -Value "$valor"
+}
+#---------------------- [SET_VARIABLES]/[END_SETVARIABLES]-----------------------------------------------------
+
 # Create .gitignore file using this command:
 # welc > .gitignore
 Set-Alias -Name welc -Value welcFn
 Set-Alias -Name cheat -Value cheatFn
 Set-Alias -Name cheatM -Value cheatmodes
 
-Import-Module C:\Users\rmoreno\.config\powershell\gitIgnore.ps1
+Import-Module C:\Users\CheatModes4\.config\powershell\gitIgnore.ps1
 
-Import-Module C:\Users\rmoreno\.config\powershell\cheatmodes4.ps1
+Import-Module C:\Users\CheatModes4\.config\powershell\cheatmodes4.ps1
 
 # Clear console when start
 cheatmodes
+Start-Sleep -Seconds 1.618
+
 Clear-Host;
 
 # put me in dev path at start
 #z dev;
 
-# put me in dct path at start
-z dct;
+# put me in isa path at start 
+z isa;
