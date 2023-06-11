@@ -1,0 +1,70 @@
+# [CHEATMODE][$]#
+ vim : nvim     #
+ ll  : ls       #
+ grep: findstr  ################################
+ tig : 'C:\Program Files\Git\usr\bin\tig.exe'  #
+ less: 'C:\Program Files\Git\usr\bin\less.exe' #
+ ..  : cd..     ################################
+ vi  : nvim     #
+                #
+# [TOOLS][$$$$$]########
+ ex    : exitFn        # exit
+ flush : flushdns      # flushDNS
+ touch : touchFn       # crete file $name
+ v     : nvimFN        # nvim
+ c     : cdFN          # cd && ls
+ dev   : devFN         # 
+ e     : eFN           #
+ n     : nFN           #
+ ta    : tFN           #
+ tai   : taiFN         #
+ co    : coFN          #
+ nrd   : nrdFN         #
+ pass  : passg         # 
+ p     : pnpmRunDevFn  # pnpm run dev
+ miduco: miducoFN      # miduco
+ ppa   : ppathFN       # copy pwd to clip #
+ pal   : palFN         # print aliases #
+                       #
+# [MIDUCO][$$$$$$$$$$$]#
+ gmidu : gmiduco       # execute miduco commit in powershell
+                       #
+# [GIT][$$$$$$$$$$$$$$]########
+ g     : git                  # comado git
+ gs    : gist                 # git status
+ ga.   : gitaddDot            # git add .
+ ga    : gitaddspread         # git add many files directories
+ grsurl: grsurlFN             # git remote set-url origin $param
+ gpof  : gpofFN               # git push --set-upstream origin main
+ gco   : gcme                 # git commit --amend $param
+ ginit : gitInit              #
+ gll   : gitll                #
+ gpob  : gpobFN               #
+ gdiff : gdiffFN              #
+ gcoa  : gcoaFN               # git commit --amend $param
+ gpush : gitPushFn            # git push
+ gllt  : gitLogHistTakuyaFn   # git log by takuya
+ gllf  : gitLogTakuyaFn       # git status files edits
+ gpusht: gitPushTakuyaFn      # git push
+ open  : gitOPENTakuyaFn      # open repo in navegator
+                              #
+# [VIM OPEN FILES][$$$$$$$]####
+ vimp : vimPackageFN       # vim ./.package.json
+ vimr : vimReadmeFN        # vim ./.README.MD
+ vimg : vimIgnoreFN        # vim ./.gitignore
+ vimi : vimIndexFN         # vim ./.index.js
+ vimw : vimWebpackFN       # vim ./.webpack.config.js
+ vime : vimEditorconfigFN  # vim ./.editorconfig
+ vimt : vimTsconfigFN      # vim ./.tsconfig.js
+ vimu : vimUserProfileFN   # vim ./user_profile.ps1
+                           #
+# [ENV:VARIABLES][$$$$$$$$]#
+ setVar : setEnvVar        # setVar $nombre $value -Example: Set-Item -Path "Env:"varName -Value "varValue"
+                           #
+# [EXAMPLES][$$$$$$$$$$$$$]###################
+# Create .gitignore file using this command: #
+# welc > .gitignore     ######################
+                        #
+ welc   : welcFn        # welc > .gitignore
+ cheat  : cheatFn       # print cheatmodes
+ cheatM : cheatmodes    # print cheatmodes

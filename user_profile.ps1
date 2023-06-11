@@ -46,6 +46,14 @@ Set-Alias -Name nrd -Value nrdFN
 Set-Alias -Name pass -Value passg
 Set-Alias -Name p -Value pnpmRunDevFn
 Set-Alias -Name miduco -Value miducoFN 
+Set-Alias -Name ppa  -Value ppathFN # copy pwd to clip
+Set-Alias -Name pal  -Value palFN # print aliases
+
+function palFN {
+    $filePath = "C:\Users\CheatModes4\.config\powershell\aliasses.txt"  # Reemplaza con la ruta correcta a tu archivo de aliases
+    $aliases = Get-Content $filePath
+    $aliases | Out-Host
+}
 
 function pnpmRunDevFn {
   pnpm run dev
@@ -117,6 +125,10 @@ module.exports = {
   plugins: [],
 }
   " >> tailwind.config.js
+}
+
+function ppathFN {
+  (pwd | Select-Object -Last 1).Path | clip
 }
 
 # --------------------------------------------------------------------- @Miduco ---------------------------------------------------------------------
