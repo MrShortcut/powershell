@@ -13,14 +13,14 @@
  touch : touchFn       # crete file $name
  v     : nvimFN        # nvim
  c     : cdFN          # cd && ls
- dev   : devFN         # 
- e     : eFN           #
- n     : nFN           #
+ dev   : devFN         # z dev
+ e     : eFN           # explorer $param
+ n     : nFN           # npm run dev
  ta    : tFN           #
  tai   : taiFN         #
- co    : coFN          #
+ co    : coFN          # code .
  nrd   : nrdFN         #
- pass  : passg         # 
+ pass  : passg         # pasword generate()
  p     : pnpmRunDevFn  # pnpm run dev
  miduco: miducoFN      # miduco
  ppa   : ppathFN       # copy pwd to clip #
@@ -37,8 +37,8 @@
  grsurl: grsurlFN             # git remote set-url origin $param
  gpof  : gpofFN               # git push --set-upstream origin main
  gco   : gcme                 # git commit --amend $param
- ginit : gitInit              #
- gll   : gitll                #
+ ginit : gitInit              # git init
+ gll   : gitll                # git log
  gpob  : gpobFN               #
  gdiff : gdiffFN              #
  gcoa  : gcoaFN               # git commit --amend $param
