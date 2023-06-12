@@ -47,12 +47,25 @@ Set-Alias -Name pass -Value passg
 Set-Alias -Name p -Value pnpmRunDevFn
 Set-Alias -Name miduco -Value miducoFN 
 Set-Alias -Name ppa  -Value ppathFN # copy pwd to clip
-Set-Alias -Name pal  -Value palFN # print aliases
+Set-Alias -Name palp  -Value palFN # print aliases
+Set-Alias -Name pal  -Value palPS1FN # print aliases
 
-function palFN {
-    $filePath = "C:\Users\CheatModes4\.config\powershell\aliasses.txt"  # Reemplaza con la ruta correcta a tu archivo de aliases
-    $aliases = Get-Content $filePath
-    $aliases | Out-Host
+function palfn {
+    $filepath = "c:\users\cheatmodes4\.config\powershell\aliasses.txt"  # reemplaza con la ruta correcta a tu archivo de aliases
+    $aliases = get-content $filepath
+    $aliases | out-host
+}
+
+function palPS1fn {
+    $filepath = "c:\users\cheatmodes4\.config\powershell\aliasses.ps1"
+    if (Test-Path $filePath) {
+        $commands = Get-Content $filePath
+        foreach ($command in $commands) {
+            Invoke-Expression $command
+        }
+    } else {
+        Write-Output "El archivo 'aliasses.ps1' no se encontró en la ubicación especificada."
+    }
 }
 
 function pnpmRunDevFn {

@@ -16,10 +16,10 @@
  dev   : devFN         # z dev
  e     : eFN           # explorer $param
  n     : nFN           # npm run dev
- ta    : tFN           #
- tai   : taiFN         #
+ ta    : tFN           # Write-Output '<script src="https://cdn.tailwindcss.com"></script>'
+ tai   : taiFN         # >> tailwind.config.js
  co    : coFN          # code .
- nrd   : nrdFN         #
+ nrd   : nrdFN         # npm run dev
  pass  : passg         # pasword generate()
  p     : pnpmRunDevFn  # pnpm run dev
  miduco: miducoFN      # miduco
@@ -39,8 +39,8 @@
  gco   : gcme                 # git commit --amend $param
  ginit : gitInit              # git init
  gll   : gitll                # git log
- gpob  : gpobFN               #
- gdiff : gdiffFN              #
+ gpob  : gpobFN               # git push --set-upstream origin $param
+ gdiff : gdiffFN              # git diff --color-words
  gcoa  : gcoaFN               # git commit --amend $param
  gpush : gitPushFn            # git push
  gllt  : gitLogHistTakuyaFn   # git log by takuya
