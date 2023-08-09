@@ -142,6 +142,7 @@ module.exports = {
 
 function ppathFN {
   (pwd | Select-Object -Last 1).Path | clip
+  Write-Host 'Path copiado satisfactoriamente!'
 }
 
 # --------------------------------------------------------------------- @Miduco ---------------------------------------------------------------------
