@@ -25,6 +25,7 @@ Highlight-Text "p     : pnpmRunDevFn  # pnpm run dev " "Red"
 Highlight-Text "miduco: miducoFN      # miduco " "Red"
 Highlight-Text "ppa   : ppathFN       # copy pwd to clip # " "Red"
 Highlight-Text "pal   : palFN         # print aliases # " "Red"
+Highlight-Text "rmf   : palPS1fn      # remove force param # " "Red"
 Write-host
 Highlight-Text "[MIDUCO]" "White"
 Highlight-Text "gmidu : gmiduco       # execute miduco commit in powershell " "DarkCyan"

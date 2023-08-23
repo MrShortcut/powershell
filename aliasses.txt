@@ -25,6 +25,7 @@
  miduco: miducoFN      # miduco
  ppa   : ppathFN       # copy pwd to clip #
  pal   : palFN         # print aliases #
+ rmf   : removeForceFN # remove force $param
                        #
 # [MIDUCO][$$$$$$$$$$$]#
  gmidu : gmiduco       # execute miduco commit in powershell

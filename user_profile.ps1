@@ -350,6 +350,9 @@ function gitPushFn {
 
 function gist {
   git status
+  Highlight-Text "--------------------------" "DarkGray"
+  Highlight-Text "pal - para sacar los alias" "Yellow"
+  Highlight-Text "--------------------------" "DarkGray"
   gmidu
 }
 
