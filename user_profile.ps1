@@ -51,13 +51,13 @@ Set-Alias -Name palp  -Value palFN # print aliases
 Set-Alias -Name pal  -Value palPS1FN # print aliases
 
 function palfn {
-    $filepath = "c:\users\cheatmodes4\.config\powershell\aliasses.txt"  # reemplaza con la ruta correcta a tu archivo de aliases
+    $filepath = "$env:USERPROFILE\.config\powershell\aliasses.txt"  # reemplaza con la ruta correcta a tu archivo de aliases
     $aliases = get-content $filepath
     $aliases | out-host
 }
 
 function palPS1fn {
-    $filepath = "c:\users\cheatmodes4\.config\powershell\aliasses.ps1"
+    $filepath = "$env:USERPROFILE\.config\powershell\aliasses.ps1"
     if (Test-Path $filePath) {
         $commands = Get-Content $filePath
         foreach ($command in $commands) {
@@ -745,9 +745,9 @@ Set-Alias -Name welc -Value welcFn
 Set-Alias -Name cheat -Value cheatFn
 Set-Alias -Name cheatM -Value cheatmodes
 
-Import-Module C:\Users\CheatModes4\.config\powershell\gitIgnore.ps1
+Import-Module $env:USERPROFILE\.config\powershell\gitIgnore.ps1
 
-Import-Module C:\Users\CheatModes4\.config\powershell\cheatmodes4.ps1
+Import-Module $env:USERPROFILE\.config\powershell\cheatmodes4.ps1
 
 # Clear console when start
 cheatmodes
