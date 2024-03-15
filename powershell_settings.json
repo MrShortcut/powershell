@@ -183,6 +183,7 @@
             },
             {
                 "commandline": "\"C:\\Users\\rmoreno\\AppData\\Local\\Microsoft\\WindowsApps\\Microsoft.PowerShell_8wekyb3d8bbwe\\pwsh.exe\" -NoLogo",
+                // "commandline": "\"%USERPROFILE%\\AppData\\Local\\Microsoft\\WindowsApps\\Microsoft.PowerShell_8wekyb3d8bbwe\\pwsh.exe\" -NoLogo",
                 "experimental.retroTerminalEffect": false,
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
