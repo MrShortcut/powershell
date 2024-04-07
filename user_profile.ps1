@@ -272,6 +272,7 @@ Set-Alias -Name gpush -Value gitPushFn
 Set-Alias -Name gllt -Value gitLogHistTakuyaFn
 Set-Alias -Name gllf -Value gitLogTakuyaFn
 Set-Alias -Name gpusht -Value gitPushTakuyaFn
+Set-Alias -Name gpu -Value gitPushTakuyaFnFinal
 Set-Alias -Name open -Value gitOPENTakuyaFn
 Set-Alias -Name gtestT -Value gtestFn
 
@@ -293,6 +294,10 @@ function gitLogTakuyaFn ($p) {
 
 function gitPushTakuyaFn {
   git push origin (git rev-parse --abbrev-ref HEAD)
+}
+
+function gitPushTakuyaFnFinal {
+  git pull origin develop && git push origin (git rev-parse --abbrev-ref HEAD)
 }
 
 function gitOPENTakuyaFn {
