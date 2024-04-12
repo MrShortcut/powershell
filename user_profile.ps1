@@ -275,6 +275,24 @@ Set-Alias -Name gpusht -Value gitPushTakuyaFn
 Set-Alias -Name gpu -Value gitPushTakuyaFnFinal
 Set-Alias -Name open -Value gitOPENTakuyaFn
 Set-Alias -Name gtestT -Value gtestFn
+Set-Alias -Name gCreateBranch -Value gCreateBranchFn
+Set-Alias -Name gNewBranch -Value gNewBranchFn
+
+function gNewBranchFn ($branchName) {
+  if ($branchName) {
+    git checkout -b $branchName
+  } else {
+    Write-Output "Dont missing branchName"
+  }
+}
+
+function gCreateBranchFn ($branchName) {
+  if ($branchName) {
+    git switch -c $branchName
+  } else {
+    Write-Output "Dont missing branchName"
+  }
+}
 
 function gitLogHistTakuyaFn ($v) {
   if($v) {
