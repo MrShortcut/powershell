@@ -43,3 +43,13 @@ scoop install fzf
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
 
 ok
+
+---
+##### .vscode\extensions
+
+hacked-solarized-dark.css
+path:
+
+```js
+...vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.13\crossnote\styles\preview_theme\solarized-dark.css
+```

@@ -782,4 +782,5 @@ Clear-Host;
 #z dev;
 
 # put me in isa path at start 
-z isa;
+# z isa;
+z smart;
