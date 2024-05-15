@@ -48,6 +48,8 @@ Highlight-Text "gpu   : gitPushFnFinal       # git push" "Cyan"
 Highlight-Text "gllt  : gitLogHistTakuyaFn   # git log by takuya" "Cyan"
 Highlight-Text "gllf  : gitLogTakuyaFn       # git status files edits" "Cyan"
 Highlight-Text "gpusht: gitPushTakuyaFn      # git push" "Cyan"
+Highlight-Text "gNewBranch: gNewBranchFn     # git checkout -b" "Cyan"
+ 
 Highlight-Text "open  : gitOPENTakuyaFn      # open repo in navegator" "Cyan"
 Write-host
 Highlight-Text "[VIM OPEN FILES]" "White"
