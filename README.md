@@ -53,3 +53,8 @@ path:
 ```js
 ...vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.13\crossnote\styles\preview_theme\solarized-dark.css
 ```
+
+```
+path this source
+C:\Users\{USERNAME}\.config\powershell
+```
