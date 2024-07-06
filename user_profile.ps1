@@ -311,7 +311,7 @@ function gitLogTakuyaFn ($p) {
 }
 
 function gitPushTakuyaFn {
-  git push origin (git rev-parse --abbrev-ref HEAD)
+  git push origin (git rev-parse --abbrev-ref HEAD) && gitLogHistTakuyaFn(1)
 }
 
 function gitPushTakuyaFnFinal {
