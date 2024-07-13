@@ -20,7 +20,7 @@ Download Modules...
 Install-Module posh-git -Scope CurrentUser -Force
 
 Install-Module oh-my-posh -Scope CurrentUser -Force
-Install-Module oh-my-posh 
+Install-Module oh-my-posh
 
 ```ps1
 Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
